@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // Connect mongoose to db
-const dbURL = process.env.dbURL || 'mongodb://127.0.0.1:27017/question-answer';
-mongoose.connect(dbURL);
+const dbURL = process.env.dbURL || 'mongodb://127.0.0.1:27017/question-answers';
+mongoose.connect(dbURL,  { useNewUrlParser: true });
 
 // Log Mongoose connection status changes:
-mongoose.connection.on('connected', () => {
+mongoose.connection.on('connected',  () => {
   // eslint-disable-next-line no-console
   console.log(`🗄  Mongoose connection is open on\n\t${dbURL}`);
 });

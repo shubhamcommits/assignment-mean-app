@@ -8,13 +8,8 @@ const path = require('path');
 const devEnv = require('../../development.config');
 
 // Correct REST naming
-/*const {
-  authsRoutes,
-  groupsRoutes,
-  postsRoutes,
-  usersRoutes,
-  workspacesRoutes
-} = require('./routes');*/
+
+const { questionsRoutes } = require('./routes');
 
 const app = express();
 
@@ -50,19 +45,7 @@ app.all('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../../public/dist/public/index.html'));
 });
 
-// Correct REST naming
-/*app.use('/api/auths', authsRoutes);
-app.use('/api/groups', groupsRoutes);
-app.use('/api/posts', postsRoutes);
-app.use('/api/users', usersRoutes);
-app.use('/api/workspaces', workspacesRoutes);*/
-
-// -->!!!! TO BE REMOVED !!!!
-/*app.use('/api/auth', authsRoutes);
-app.use('/api/group', groupsRoutes);
-app.use('/api/post', postsRoutes);
-app.use('/api/user', usersRoutes);
-app.use('/api/workspace', workspacesRoutes);*/
+app.use('/api/posts', questionsRoutes);
 
 // Invalid routes handling middleware
 app.use((req, res, next) => {

@@ -28,6 +28,22 @@ const add = async (req, res, next) => {
   }
 };
 
+const get = async (req, res, next) => {
+  try {
+    const questions =  await Ques.find()
+    .sort('_id')
+    .lean();
+
+    return res.status(200).json({
+      message: 'All Questions found!',
+      questions
+      
+    });
+  } catch (err) {
+    return sendErr(res, err);
+  }
+};
+
 /*  =============
  *  -- EXPORTS --
  *  =============
@@ -35,5 +51,6 @@ const add = async (req, res, next) => {
 
 module.exports = {
   // Question Main controllers
-  add
+  add,
+  get
 };

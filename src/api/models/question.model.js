@@ -16,7 +16,11 @@ const QuesSchema = new Schema({
   },
   answer: [{
     type: String
-  }]
+  }],
+  created_date :{
+    type:Date,
+    default: Date.now()
+  }
 });
 
 const Ques = mongoose.model('Ques', QuesSchema);

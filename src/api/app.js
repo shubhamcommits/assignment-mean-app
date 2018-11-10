@@ -22,7 +22,10 @@ if (process.env.NODE_ENV !== 'production') {
 require('../db');
 
 // cors middleware for orign and Headers
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://127.0.0.1:4200', 'http://localhost:4200'],
+  credentials: true
+}));
 
 // Set Bodyparser middleware
 app.use(bodyParser.urlencoded({

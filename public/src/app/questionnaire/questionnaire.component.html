@@ -1,69 +1,62 @@
-
+<div class="row" style="margin-top:40px; padding:20px;">
+    <div class="col-lg-12" style="text-align:center;">
+      <h1 style="font-weight:bold; font-size: 50px; color: #0069d9;">Answer the Questions!</h1>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="mt-4 col-md-12">
+  
+    </div>
+  
+  </div>
   <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <button class="btn btn-sm btn-outline-primary mr-2" (click)="acc.toggle('toggle-1')">Only one correct Answer</button>
-                <button class="btn btn-sm btn-outline-primary mr-2" (click)="acc.toggle('toggle-2')">Multiple Correct Answers</button>
-                <button class="btn btn-sm btn-outline-primary mr-2" (click)="acc.toggle('toggle-3')">Fill in the blanks</button>
-                <button class="btn btn-sm btn-outline-primary mr-2" (click)="acc.toggle('toggle-4')">One or More than one could be correct</button>
-    
-            </div>
-          </div>
-        </nav>
-
-
-
-
-
-
     <div class="row">
       <div class="col-md-12 offset-md-0">
         <div class="quiz">
-  
-
-            <h2 class="quiz-question">Q1: What's the capital of India?</h2>
-            <ul data-quiz-question="1">
-               <li class="quiz-answer"> <input type="radio" name="optradio" value="new delhi">  New Delhi</li>
-              <li class="quiz-answer"><input type="radio" name="optradio" value="mumbai">  Mumbai</li>
-              <li class="quiz-answer"><input type="radio" name="optradio" value="kolkata">  Kolkata</li>
-              <li class="quiz-answer"><input type="radio" name="optradio" value="chennai">  Chennai</li>
-            </ul>
-
-
-            <h2 class="quiz-question">Q2: Select the correct statements, out of the following?</h2>
-            <ul data-quiz-question="2">
-                <li class="quiz-answer"><input type="checkbox"  value="a">  There are 7 continents in the Entire world</li>
-                <li class="quiz-answer"><input type="checkbox"  value="b">  London is the capital of United Kingdom</li>
-                <li class="quiz-answer"><input type="checkbox"  value="c">  Europe's adjacent continent is Asia</li>
-                <li class="quiz-answer"><input type="checkbox"  value="d">  Paris is a city in Australia</li>
-
-            </ul>
-
-
-              <h2 class="quiz-question">Q3: There are ____ states in United States of America? </h2>
-              <input type="number" class="form-control" name = "3">
-              <!--<ul data-quiz-question="3">
-                <li class="quiz-answer" data-quiz-answer="a">a. 40</li>
-                <li class="quiz-answer" data-quiz-answer="b">b. 50</li>
-                <li class="quiz-answer" data-quiz-answer="c">c. 60</li>
-                <li class="quiz-answer" data-quiz-answer="d">d. 70</li>
-              </ul>-->
-   
-
-                <h2 class="quiz-question">Q4: Pick out the right statement(s)?</h2>
-                <ul data-quiz-question="4">
-                  <li class="quiz-answer" data-quiz-answer="a">a. Moscow is the capital of Russia</li>
-                  <li class="quiz-answer" data-quiz-answer="b">b. Tiger is the estranged brother of Lion</li>
-                  <li class="quiz-answer" data-quiz-answer="c">c. HTML stands Hyper Text Makeup Language</li>
-                  <li class="quiz-answer" data-quiz-answer="d">d. HTML is a Server Side Language</li>
+            
+          <div *ngFor="let question of questions; let i = index;">
+              
+            <div *ngIf="question.type == 'single'">
+                <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
+                <button class="btn btn-warning btn-sm form-control" style="font-weight: bold;">Single Correct!</button>
+                <ul *ngFor="let option of question.options; let j = index;">
+                   <li class="quiz-answer"> 
+                     <input type="radio" name="optSingle" id="optSingle-{{j}}" value="{{j}}" (change)="onChange(j)"> {{option}}</li>
                 </ul>
+                <button class="btn btn-success btn-sm form-control" (click)="submitAnswerSingleType(question?.answer)">Submit Answer</button>
+            </div>
 
+            <div *ngIf="question.type == 'multiple'">
+                <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
+                <button class="btn btn-warning btn-sm form-control" style="font-weight: bold;">Multiple Correct!</button>
+                <ul *ngFor="let option of question.options; let j = index;">
+                   <li class="quiz-answer"> <input type="checkbox" name="optcheck" value="{{j}}" (click)="onChangeMultiple(j)">  {{option}}</li>
+                </ul>
+                <button class="btn btn-success btn-sm form-control" (click)="submitAnswerMultipleType(question?.answer)">Submit Answer</button>
+            </div>
 
-          
+            <div *ngIf="question.type == 'fill'">
+                <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
+                <button class="btn btn-warning btn-sm form-control" style="font-weight: bold;">Fill in the Blanks!</button>
+                <ul>
+                  <li class="quiz-answer"> <input type="text" name="answer" class="form-control" placeholder="Your Answer" [(ngModel)]="textFillType" (change)="onChangeTextFillIn()"></li>
+                </ul>
+                <button class="btn btn-success btn-sm form-control" (click)="submitAnswerTextFillIn(question?.fillIn)">Submit Answer</button>
+            </div>
 
-      
-        <div class="quiz-result"></div>
+            <div *ngIf="question.type == 'one_or_more'">
+                <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
+                <button class="btn btn-warning btn-sm form-control pull-right" style="font-weight: bold;">One or More than One Correct!</button>
+                <ul *ngFor="let option of question.options; let j = index;">
+                   <li class="quiz-answer"> <input type="checkbox" name="optcheck" value="{{option}}" (click)="onChangeOneOrMore(j)">  {{option}}</li>
+                </ul>
+                <button class="btn btn-success btn-sm form-control" (click)="submitAnswerOneOrMoreType(question?.answer)">Submit Answer</button>
+            </div>
+
+          </div>
       </div>
     </div>
   </div>
+  </div>
+

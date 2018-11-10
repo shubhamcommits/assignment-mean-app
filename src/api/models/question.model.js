@@ -18,9 +18,12 @@ const QuesSchema = new Schema({
     type: String
   }],
   answer: [{
-    type: String,
+    type: Number,
     required: true
   }],
+  fillIn: {
+    type: String
+  },
   created_date :{
     type:Date,
     default: Date.now(),

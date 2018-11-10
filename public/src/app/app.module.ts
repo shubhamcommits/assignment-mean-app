@@ -11,6 +11,7 @@ import { CreateQuestionComponent } from './create-question/create-question.compo
 import { HomeComponent } from './home/home.component';
 
 import { CreateQuestionService } from '../shared/services/create-question.service';
+import { GetQuestionService } from '../shared/services/get-question.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { CreateQuestionService } from '../shared/services/create-question.servic
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [CreateQuestionService],
+  providers: [CreateQuestionService, GetQuestionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

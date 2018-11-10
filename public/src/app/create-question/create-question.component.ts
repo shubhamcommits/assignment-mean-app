@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateQuestionService } from '../../shared/services/create-question.service'; 
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-create-question',
@@ -168,8 +169,11 @@ export class CreateQuestionComponent implements OnInit {
      this.questionService.createQuestion(formData)
      .subscribe((res) => {
        console.log('New Question Created', res);
+       swal('Good Job!', 'Your Question has been created!', 'success');
      }, (err)=>{
        console.log('Error while creating question', err);
+       swal('Oops!', 'There\'s some techincal error '+ err, 'error');
+       
      });
      this.questionFormWithoutFill.reset();
   
@@ -214,8 +218,11 @@ export class CreateQuestionComponent implements OnInit {
       this.questionService.createQuestion(formData)
       .subscribe((res) => {
         console.log('New Question Created', res);
+        swal('Good Job!', 'Your Question has been created!', 'success');
       }, (err)=>{
         console.log('Error while creating question', err);
+        swal('Oops!', 'There\'s some techincal error '+ err, 'error');
+        
       });
       this.questionFormWithoutFill.reset();
     }
@@ -233,7 +240,8 @@ export class CreateQuestionComponent implements OnInit {
        content: this.questionFormWithoutFill.value.content,
        type: this.type,
        options: options,
-       answer: answers.toString()
+       fillIn: answers[0].toString(),
+       answer: []
      }
      
      //console.log('Form Data', formData);
@@ -243,8 +251,11 @@ export class CreateQuestionComponent implements OnInit {
      this.questionService.createQuestion(formData)
      .subscribe((res) => {
        console.log('New Question Created', res);
+       swal('Good Job!', 'Your Question has been created!', 'success');
      }, (err)=>{
        console.log('Error while creating question', err);
+       swal('Oops!', 'There\'s some techincal error '+ err, 'error');
+       
      });
      this.questionFormWithoutFill.reset();
      
@@ -289,8 +300,11 @@ export class CreateQuestionComponent implements OnInit {
       this.questionService.createQuestion(formData)
       .subscribe((res) => {
         console.log('New Question Created', res);
+        swal('Good Job!', 'Your Question has been created!', 'success');
       }, (err)=>{
         console.log('Error while creating question', err);
+        swal('Oops!', 'There\'s some techincal error '+ err, 'error');
+        
       });
       this.questionFormWithoutFill.reset();
     }

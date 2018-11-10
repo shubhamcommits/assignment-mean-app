@@ -15,6 +15,7 @@ const add = async (req, res, next) => {
         content:req.body.content,
         type: req.body.type,
         options: req.body.options,
+        fillIn: req.body.fillIn,
         answer:req.body.answer
     });
 
@@ -32,7 +33,7 @@ const add = async (req, res, next) => {
 const get = async (req, res, next) => {
   try {
     const questions =  await Ques.find()
-    .sort('_id')
+    .sort('-created_date')
     .lean();
 
     return res.status(200).json({

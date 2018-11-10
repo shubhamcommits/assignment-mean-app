@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  BASE_API_URL: '/api',
-  BASE_URL: ''
+ // BASE_API_URL: '/api',
+  //BASE_URL: ''
 };
 
 /*

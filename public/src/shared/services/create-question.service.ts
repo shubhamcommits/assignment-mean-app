@@ -5,12 +5,12 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class CreateQuestionService {
 
-  BASE_API_URL = environment.BASE_API_URL;
+ // BASE_API_URL = environment.BASE_API_URL;
 
   constructor(private _http: HttpClient) { }
 
   createQuestion(postData){
-   return this._http.post(this.BASE_API_URL + '/posts', postData);
+   return this._http.post('api/posts', postData);
 
   }
 }

@@ -5,11 +5,11 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class GetQuestionService {
 
- // BASE_API_URL = environment.BASE_API_URL;
+  BASE_API_URL = environment.BASE_API_URL;
 
   constructor(private _http: HttpClient) { }
 
   getQuestions(){
-    return this._http.get('api/posts');
+    return this._http.get(this.BASE_API_URL + '/posts');
   }
 }

@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-  NODE_TLS_REJECT_UNAUTHORIZED: 0
-//  BASE_API_URL: '/api',
- // BASE_URL: ''
+  BASE_API_URL: 'https://questionnaire-mean-app.herokuapp.com/api',
+  BASE_URL: 'https://questionnaire-mean-app.herokuapp.com/'
 };

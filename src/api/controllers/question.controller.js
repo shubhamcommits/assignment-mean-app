@@ -14,13 +14,14 @@ const add = async (req, res, next) => {
     const questionData = new Ques({
         content:req.body.content,
         type: req.body.type,
+        options: req.body.options,
         answer:req.body.answer
     });
 
     const question = await Ques.create(questionData);
 
     return res.status(200).json({
-      message: 'New post created!',
+      message: 'New Question created!',
       question
     });
   } catch (err) {

@@ -1,15 +1,57 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<nav class="navbar bg-primary navbar-dark">
-<a class="navbar-brand" style="font-weight: bold; color: white;" [routerLink]="['/home']">QUESTIONNAIRE </a>
-</nav>
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark fixed-top">
+  
+      <a class="navbar-brand" style="font-weight: bold;" [routerLink]="['/home']">QuestionNaire</a>
+  
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end">
 
-
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 offset-md-0">
-        <router-outlet></router-outlet>
+          <li class="nav-item btn btn-primary btn-lg">
+            <a class="nav-link" style="font-weight: bold; color: white;" [routerLink]="['/create']">Create Question</a>
+          </li>
+          <li class="nav-item btn btn-primary btn-lg">
+            <a class="nav-link" style="font-weight: bold; color: white;" [routerLink]="['/answer']">Answer Quiz</a>
+          </li>
+  
+          <!--<li class="nav-item dropdown btn btn-primary btn-lg">
+        <a class="nav-link dropdown-toggle" style="font-weight: bold; color: white;" href="#" id="navbardrop" data-toggle="dropdown">
+          Logout
+        </a>
+        <div class="dropdown-menu pull-right">
+          <a class="dropdown-item"  [routerLink]="['/home']"> Patient</a>
+          <a class="dropdown-item"  [routerLink]="['/home']" >Professsional</a>
+  
+        </div>
+      </li>-->
+  
+        </ul>
+  
       </div>
+    </nav>
+  
+  </div>
+  
+  <div class="clearfix">
+    <div class="row">
+      <div class="mt-4 col-md-12">
+  
+      </div>
+  
     </div>
   </div>
-</body>
+  
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 offset-md-0">
+  
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </body>

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // Connect mongoose to db
-const dbURL = process.env.dbURL || 'mongodb://127.0.0.1:27017/question-answers';
+const dbURL = process.env.dbURL || 'mongodb://shubham3597:shubham3597#@ds155833.mlab.com:55833/question-answer';
 mongoose.connect(dbURL,  { useNewUrlParser: true });
 
 // Log Mongoose connection status changes:

@@ -18,12 +18,12 @@
       <div class="col-md-8">
   
   
-        <form method="POST">
+        <form [formGroup]="questionFormWithoutFill">
           <div class="input-group">
             <button class="btn btn-primary btn-lg form-control" style="pointer-events: none;">Your Question</button>
           </div>
           <div class="input-group">
-              <textarea class="form-control" formControlName="question" name="question" id="question" type="text"
+              <textarea class="form-control" formControlName="content" name="content" id="content" type="text"
               placeholder="Post your Question here"></textarea>
           </div>
           <div class="input-group">
@@ -33,60 +33,60 @@
           </div>
           <div class="input-group row">
             <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" name="optradio">  Single Choice Correct</label>
+                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="single" (change)="changeRadioSingle()">  Single Choice Correct</label>
             </div>
             <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" name="optradio">  Multiple Choice Correct</label>
+                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="multiple" (change)="changeRadioMultiple()">  Multiple Choice Correct</label>
             </div>
             <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" name="optradio">  Fill in the Blanks</label>
+                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="fill" (change)="changeRadioFill()">  Fill in the Blanks</label>
             </div>
             <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" name="optradio">  One or More than one Correct</label>
+                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="one_or_more" (change)="changeRadioOneOrMore()">  One or More than one Correct</label>
             </div>
           </div>
           <div class="input-group">
             <button class="btn btn-primary btn-lg form-control" style="pointer-events: none;">Prepare Answer Options</button>
           </div>
-          <div class="input-group row" id="fillIn">
+          <div class="input-group row" id="fillIn" style="display:none;">
               <div class="input-group row">
                   <div class="col-md-12">
                   <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Correct Answer</button>
-                  <input type="text" class="form-control" formControlName="cpass" name="cpass" id="cpass_" placeholder="Correct Answer">
+                  <input type="text" class="form-control" formControlName="fillInAnswer" name="fillInAnswer" id="fillInAnswer" placeholder="Correct Answer">
                    </div>
                 </div>
           
           </div>
-          <div class="input-group row" id="notFillIn">
+          <div class="input-group row" id="notFillIn" style="display:none;">
             
           <div class="input-group row">
               <div class="col-md-12">
               <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input First Option (a)</button>
-              <input type="text" class="form-control" formControlName="cpass" name="cpass" id="cpass_" placeholder="First Option">
+              <input type="text" class="form-control" formControlName="optionOne" name="optionOne" id="optionOne" placeholder="First Option">
                </div>
             </div>
             <div class="input-group row">
                 <div class="col-md-12">
                 <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Second Option (b)</button>
-                <input type="text" class="form-control" formControlName="cpass" name="cpass" id="cpass_" placeholder="Second Option">
+                <input type="text" class="form-control" formControlName="optionTwo" name="optionTwo" id="optionTwo" placeholder="Second Option">
                  </div>
               </div>
               <div class="input-group row">
                   <div class="col-md-12">
                   <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Third Option (c)</button>
-                  <input type="text" class="form-control" formControlName="cpass" name="cpass" id="cpass_" placeholder="Third Option">
+                  <input type="text" class="form-control" formControlName="optionThree" name="optionThree" id="optionThree" placeholder="Third Option">
                    </div>
                 </div>
                 <div class="input-group row">
                     <div class="col-md-12">
                     <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Fourth Option (d)</button>
-                    <input type="text" class="form-control" formControlName="cpass" name="cpass" id="cpass_" placeholder="Fourth Option">
+                    <input type="text" class="form-control" formControlName="optionFour" name="optionFour" id="optionFour" placeholder="Fourth Option">
                      </div>
                   </div>
                   <div class="input-group row">
                     <div class="col-md-12">
                     <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Correct Option(s) separated by ","</button>
-                    <input type="text" class="form-control" formControlName="cpass" name="cpass" id="cpass_" placeholder="Correct Option(s)">
+                    <input type="text" class="form-control" formControlName="correctAnswers" name="correctAnswers" id="correctAnswers" placeholder="Correct Option(s)">
                      </div>
                   </div>
             
@@ -95,11 +95,11 @@
   
           </div>
           <div class="input-group">
-            <button class="btn btn-success btn-lg form-control" type="submit" (click)="registerrofessional()">Post this Question!</button>
+            <button class="btn btn-success btn-lg form-control" style="font-weight: bold;" (click)="createQuestion()">Post this Question!</button>
   
           </div>
           <div class="input-group">
-            <button class="btn btn-danger form-control btn-lg">BACK</button>
+              <button class="btn btn-danger btn-lg form-control" type="button" style="font-weight: bold;" [routerLink]="['/home']">Back to Home</button>
           </div>
         </form>
   

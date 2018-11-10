@@ -14,12 +14,17 @@ const QuesSchema = new Schema({
     required: true,
     enum:['single', 'multiple', 'fill', 'one_or_more']
   },
-  answer: [{
+  options:[{
     type: String
+  }],
+  answer: [{
+    type: String,
+    required: true
   }],
   created_date :{
     type:Date,
-    default: Date.now()
+    default: Date.now(),
+    required: true
   }
 });
 

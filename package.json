@@ -5,9 +5,10 @@
   "main": "src/api/app.js",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "start": "node server.js"
   },
-  "author": "waqas",
+  "author": "shubham",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",

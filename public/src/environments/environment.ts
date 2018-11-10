@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  BASE_API_URL: 'https://questionnaire-mean-app.herokuapp.com/api',
-  BASE_URL: 'https://questionnaire-mean-app.herokuapp.com'
+  BASE_API_URL: 'https://localhost:8080/api',
+  BASE_URL: 'https://localhost:8080/'
 };
 
 /*

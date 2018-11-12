@@ -41,7 +41,7 @@ app.use(morgan('dev'));
 //app.use('/uploads', express.static(process.env.FILE_UPLOAD_FOLDER));
 
 // static folder
-app.use(express.static(path.join(__dirname, '../../public/dist/public')));
+app.use(express.static(path.join(__dirname, '../../public/dist/public'), {redirect: false}));
 
 // Routes which should handle request
 app.all('/', (req, res, next) => {

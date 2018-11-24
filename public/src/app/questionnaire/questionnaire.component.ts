@@ -112,7 +112,7 @@ export class QuestionnaireComponent implements OnInit {
       console.log('All Questions', this.questions);
       swal('Good Job!', 'You have got '+this.questions.length+ ' questions to answer!', 'success');
     }, (err) =>{
-      swal('Oops!', 'There\'s some techincal error '+ err, 'error');
+      swal('Oops!', 'There\'s some techincal error '+ err['message'], 'error');
       console.log('Error in fetching the questions', err);
     })
   }

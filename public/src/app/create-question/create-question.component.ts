@@ -10,74 +10,54 @@ import swal from 'sweetalert';
 })
 export class CreateQuestionComponent implements OnInit {
 
-  questionFormWithoutFill: FormGroup;
- // questionFormWithFill: FormGroup;
- // questionFormOnlyOne: FormGroup;
- // questionFormMultiple: FormGroup;
+  questionForm: FormGroup;
   type: string = '';
+  inputOptions = [1];
 
 
   constructor(private questionService: CreateQuestionService) { }
 
   ngOnInit() {
-    this.initCreateQuestionFormWithoutFill();
-
-   // this.initCreateQuestionMultipleForm();
-   // this.initCreateQuestionOnlyOneForm();
-   // this.initCreateQuestionWithFillForm();
+    this.initCreatequestionForm();
 
   }
 
-  initCreateQuestionFormWithoutFill() {
-    this.questionFormWithoutFill = new FormGroup({
+  addOptions(){
+    var lastOption = this.inputOptions[this.inputOptions.length-1];
+    if(this.questionForm.controls['option'+lastOption].value == null){
+      swal('Oops!', 'Please Fill up the last option before adding another option', 'error');
+    }
+
+    else {
+      var newLastOption = (lastOption + 1);
+      this.inputOptions.push(newLastOption);
+      this.questionForm.addControl('option'+ newLastOption, new FormControl(null, Validators.required));
+      //console.log('New Options', this.inputOptions);
+      //console.log('Form Controls', this.questionForm.controls);
+    }
+
+  }
+
+  removeLastOption(){
+    var lastOption = this.inputOptions[this.inputOptions.length-1];
+    this.inputOptions.pop();
+    this.questionForm.removeControl('option'+lastOption);
+   // console.log('New Options', this.inputOptions);
+    //console.log('Form Controls', this.questionForm.controls);
+  }
+
+  initCreatequestionForm() {
+    this.questionForm = new FormGroup({
 
       content: new FormControl(null),
       type: new FormControl(this.type),
       fillInAnswer: new FormControl(null),
-      optionOne: new FormControl(null),
-      optionTwo: new FormControl(null),
-      optionThree: new FormControl(null),
-      optionFour: new FormControl(null),
-      correctAnswers: new FormControl(null)
+      correctAnswers: new FormControl(null),
+      option1: new FormControl(null)
 
     });
   }
 
-  initCreateQuestionWithFillForm() {
-    this.questionFormWithoutFill = new FormGroup({
-
-      content: new FormControl(null, Validators.required),
-      type: new FormControl(this.type, Validators.required),
-      fillInAnswer: new FormControl(null, Validators.required)
-
-    });
-  }
-  initCreateQuestionOnlyOneForm() {
-    this.questionFormWithoutFill = new FormGroup({
-
-      content: new FormControl(null, Validators.required),
-      type: new FormControl(this.type, Validators.required),
-      optionOne: new FormControl(null, Validators.required),
-      optionTwo: new FormControl(null, Validators.required),
-      optionThree: new FormControl(null, Validators.required),
-      optionFour: new FormControl(null, Validators.required),
-      correctAnswers: new FormControl(null, Validators.required)
-
-    });
-  }
-  initCreateQuestionMultipleForm() {
-    this.questionFormWithoutFill = new FormGroup({
-
-      content: new FormControl(null, Validators.required),
-      type: new FormControl(this.type, Validators.required),
-      optionOne: new FormControl(null, Validators.required),
-      optionTwo: new FormControl(null, Validators.required),
-      optionThree: new FormControl(null, Validators.required),
-      optionFour: new FormControl(null, Validators.required),
-      correctAnswers: new FormControl(null, Validators.required)
-
-    });
-  }
 
   changeRadioSingle(){ 
     const notFillInOptions = document.getElementById('notFillIn');
@@ -86,7 +66,7 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'block';
     fillIn.style.display ='none';
     this.type = 'single';
-    console.log('Type', this.type);
+  //  console.log('Type', this.type);
   }
 
   changeRadioMultiple(){
@@ -96,7 +76,7 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'block';
     fillIn.style.display ='none';
     this.type = 'multiple';
-    console.log('Type', this.type);
+  //  console.log('Type', this.type);
 
   }
 
@@ -107,7 +87,7 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'none';
     fillIn.style.display ='block';
     this.type = 'fill';
-    console.log('Type', this.type);
+  //  console.log('Type', this.type);
   }
 
   changeRadioOneOrMore(){
@@ -117,56 +97,51 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'block';
     fillIn.style.display ='none';
     this.type = 'one_or_more';
-    console.log('Type', this.type);
+   // console.log('Type', this.type);
   
   }
   
 
   createQuestion(){
 
+    if(this.questionForm.controls['content'].value == null || this.questionForm.controls['type'].value == null){
+      swal('Oops!', 'Please Fill up all the fields', 'error');
+    }
+
     if(this.type == 'single'){
      //this.initCreateQuestionOnlyOneForm();
-     console.log('Single Form', this.questionFormWithoutFill.value);
+     console.log('Single Form', this.questionForm.value);
+    // console.log('Total Options', this.inputOptions);
      
 
      var options = new Array();
-     options.push(this.questionFormWithoutFill.value.optionOne);
-     options.push(this.questionFormWithoutFill.value.optionTwo);
-     options.push(this.questionFormWithoutFill.value.optionThree);
-     options.push(this.questionFormWithoutFill.value.optionFour);
+
+     for(var i = 0; i < this.inputOptions.length; i++){
+      options.push(this.questionForm.value['option'+(i+1)]);
+     }
 
      var answers = new Array();
     
-      answers = this.questionFormWithoutFill.value.correctAnswers.split(',');
+      answers = this.questionForm.value.correctAnswers.split(',');
  
      
      for(var i = 0 ; i < answers.length ; i ++){
-       if(answers[i] == 'a'){
-         answers[i] = '0';
-       }
-       else if( answers[i] == 'b'){
-         answers[i] = '1';
-       }
-       else if( answers[i] == 'c'){
-        answers[i] = '2';
-      }
-      else if( answers[i] == 'd'){
-        answers[i] = '3';
-      }
+       var answerOption = parseInt(answers[i]);
+       answers[i] = answerOption - 1;
      }
 
      const formData ={
-       content: this.questionFormWithoutFill.value.content,
+       content: this.questionForm.value.content,
        type: this.type,
        options: options,
        answer: answers
      }
      
-     //console.log('Form Data', formData);
-     //console.log('Form Option Data', options);
-     //console.log('Form Answer Data', answers);
+    // console.log('Form Data', formData);
+    // console.log('Form Option Data', options);
+    // console.log('Form Answer Data', answers);
 
-     this.questionService.createQuestion(formData)
+    this.questionService.createQuestion(formData)
      .subscribe((res) => {
        console.log('New Question Created', res);
        swal('Good Job!', 'Your Question has been created!', 'success');
@@ -175,45 +150,39 @@ export class CreateQuestionComponent implements OnInit {
        swal('Oops!', 'There\'s some techincal error '+ err, 'error');
        
      });
-     this.questionFormWithoutFill.reset();
+     this.questionForm.reset();
   
     }
     else if(this.type == 'multiple'){
      // this.initCreateQuestionMultipleForm();
-      console.log('Multiple Form', this.questionFormWithoutFill.value);
+      console.log('Multiple Form', this.questionForm.value);
       var options = new Array();
-      options.push(this.questionFormWithoutFill.value.optionOne);
-      options.push(this.questionFormWithoutFill.value.optionTwo);
-      options.push(this.questionFormWithoutFill.value.optionThree);
-      options.push(this.questionFormWithoutFill.value.optionFour);
- 
-      var answers = new Array();
-      answers = this.questionFormWithoutFill.value.correctAnswers.split(',');
-      for(var i = 0 ; i < answers.length ; i ++){
-        if(answers[i] == 'a'){
-          answers[i] = '0';
-        }
-        else if( answers[i] == 'b'){
-          answers[i] = '1';
-        }
-        else if( answers[i] == 'c'){
-         answers[i] = '2';
-       }
-       else if( answers[i] == 'd'){
-         answers[i] = '3';
-       }
+
+      for(var i = 0; i < this.inputOptions.length; i++){
+       options.push(this.questionForm.value['option'+(i+1)]);
       }
  
+      var answers = new Array();
+     
+       answers = this.questionForm.value.correctAnswers.split(',');
+  
+      
+      for(var i = 0 ; i < answers.length ; i ++){
+        var answerOption = parseInt(answers[i]);
+        answers[i] = answerOption - 1;
+      }
+ 
+ 
       const formData ={
-        content: this.questionFormWithoutFill.value.content,
+        content: this.questionForm.value.content,
         type: this.type,
         options: options,
         answer: answers
       }
       
-      //console.log('Form Data', formData);
-      //console.log('Form Option Data', options);
-      //console.log('Form Answer Data', answers);
+     // console.log('Form Data', formData);
+     // console.log('Form Option Data', options);
+    //  console.log('Form Answer Data', answers);
       
       this.questionService.createQuestion(formData)
       .subscribe((res) => {
@@ -224,29 +193,30 @@ export class CreateQuestionComponent implements OnInit {
         swal('Oops!', 'There\'s some techincal error '+ err, 'error');
         
       });
-      this.questionFormWithoutFill.reset();
+      this.questionForm.reset();
+
     }
     else if(this.type == 'fill'){
     // this.initCreateQuestionWithFillForm();
     
-     console.log('Fill in the Blank Form', this.questionFormWithoutFill.value);
+     console.log('Fill in the Blank Form', this.questionForm.value);
 
 
      var answers = new Array();
     
-      answers = this.questionFormWithoutFill.value.fillInAnswer.split(',');
+      answers = this.questionForm.value.fillInAnswer.split(',');
 
      const formData ={
-       content: this.questionFormWithoutFill.value.content,
+       content: this.questionForm.value.content,
        type: this.type,
        options: options,
        fillIn: answers[0].toString(),
        answer: []
      }
      
-     //console.log('Form Data', formData);
-     //console.log('Form Option Data', options);
-     //console.log('Form Answer Data', answers);
+    // console.log('Form Data', formData);
+    // console.log('Form Option Data', options);
+   //  console.log('Form Answer Data', answers);
 
      this.questionService.createQuestion(formData)
      .subscribe((res) => {
@@ -257,45 +227,39 @@ export class CreateQuestionComponent implements OnInit {
        swal('Oops!', 'There\'s some techincal error '+ err, 'error');
        
      });
-     this.questionFormWithoutFill.reset();
+     this.questionForm.reset();
      
     }
     else if(this.type == 'one_or_more'){
      // this.initCreateQuestionMultipleForm();
-      console.log('One or More Form', this.questionFormWithoutFill.value);
+      console.log('One or More Form', this.questionForm.value);
       var options = new Array();
-      options.push(this.questionFormWithoutFill.value.optionOne);
-      options.push(this.questionFormWithoutFill.value.optionTwo);
-      options.push(this.questionFormWithoutFill.value.optionThree);
-      options.push(this.questionFormWithoutFill.value.optionFour);
- 
-      var answers = new Array();
-      answers = this.questionFormWithoutFill.value.correctAnswers.split(',');
-      for(var i = 0 ; i < answers.length ; i ++){
-        if(answers[i] == 'a'){
-          answers[i] = '0';
-        }
-        else if( answers[i] == 'b'){
-          answers[i] = '1';
-        }
-        else if( answers[i] == 'c'){
-         answers[i] = '2';
-       }
-       else if( answers[i] == 'd'){
-         answers[i] = '3';
-       }
+
+      for(var i = 0; i < this.inputOptions.length; i++){
+       options.push(this.questionForm.value['option'+(i+1)]);
       }
  
+      var answers = new Array();
+     
+       answers = this.questionForm.value.correctAnswers.split(',');
+  
+      
+      for(var i = 0 ; i < answers.length ; i ++){
+        var answerOption = parseInt(answers[i]);
+        answers[i] = answerOption - 1;
+      }
+ 
+ 
       const formData ={
-        content: this.questionFormWithoutFill.value.content,
+        content: this.questionForm.value.content,
         type: this.type,
         options: options,
         answer: answers
       }
       
-      //console.log('Form Data', formData);
-      //console.log('Form Option Data', options);
-      //console.log('Form Answer Data', answers);
+    //  console.log('Form Data', formData);
+     // console.log('Form Option Data', options);
+    //  console.log('Form Answer Data', answers);
       
       this.questionService.createQuestion(formData)
       .subscribe((res) => {
@@ -306,7 +270,8 @@ export class CreateQuestionComponent implements OnInit {
         swal('Oops!', 'There\'s some techincal error '+ err, 'error');
         
       });
-      this.questionFormWithoutFill.reset();
+      this.questionForm.reset();
+      
     }
     
   }

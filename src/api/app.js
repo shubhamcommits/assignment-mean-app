@@ -13,6 +13,11 @@ const { questionsRoutes } = require('./routes');
 
 const app = express();
 
+var corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 // Load 'development' configs for dev environment
 if (process.env.NODE_ENV !== 'production') {
   devEnv.init();
@@ -22,10 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
 require('../db');
 
 // cors middleware for orign and Headers
-app.use(cors({
-  origin: ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://127.0.0.1:4200', 'http://localhost:4200'],
-  credentials: true
-}));
+app.use(cors());
 
 // Set Bodyparser middleware
 app.use(bodyParser.urlencoded({
@@ -48,7 +50,7 @@ app.all('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../../public/dist/public/index.html'));
 });
 
-app.use('/api/posts', questionsRoutes);
+app.use('/api/posts', questionsRoutes, cors(corsOptions));
 
 // Invalid routes handling middleware
 app.use((req, res, next) => {

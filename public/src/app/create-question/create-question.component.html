@@ -18,11 +18,11 @@
       <div class="col-md-8">
   
   
-        <form [formGroup]="questionFormWithoutFill">
-          <div class="input-group">
+        <form [formGroup]="questionForm">
+          <div class="input-group" style=" margin-block-end: 0; margin-bottom: 0;">
             <button class="btn btn-primary btn-lg form-control" style="pointer-events: none;">Your Question</button>
           </div>
-          <div class="input-group">
+          <div class="input-group" style=" margin-block-start: 0; margin-top: 0;">
               <textarea class="form-control" formControlName="content" name="content" id="content" type="text"
               placeholder="Post your Question here"></textarea>
           </div>
@@ -51,42 +51,34 @@
           <div class="input-group row" id="fillIn" style="display:none;">
               <div class="input-group row">
                   <div class="col-md-12">
-                  <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Correct Answer</button>
+                  <button class="btn-warning btn-sm form-control" style="pointer-events: none; font-weight: bold;">Input Correct Answer</button>
                   <input type="text" class="form-control" formControlName="fillInAnswer" name="fillInAnswer" id="fillInAnswer" placeholder="Correct Answer">
                    </div>
                 </div>
           
           </div>
           <div class="input-group row" id="notFillIn" style="display:none;">
-            
-          <div class="input-group row">
+
+            <div class="input-group row" *ngFor="let options of inputOptions; let i = index;">
               <div class="col-md-12">
-              <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input First Option (a)</button>
-              <input type="text" class="form-control" formControlName="optionOne" name="optionOne" id="optionOne" placeholder="First Option">
+              <label class="btn-warning btn btn-sm form-control" style="pointer-events: none; font-weight: bold; margin-block-end: 0;">Input your Option {{options}}</label>
+              <input type="text" class="form-control" formControlName="option{{options}}" name="option{{options}}" id="option{{options}}" placeholder="Your Option {{options}}">
                </div>
+               
             </div>
             <div class="input-group row">
-                <div class="col-md-12">
-                <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Second Option (b)</button>
-                <input type="text" class="form-control" formControlName="optionTwo" name="optionTwo" id="optionTwo" placeholder="Second Option">
-                 </div>
-              </div>
-              <div class="input-group row">
-                  <div class="col-md-12">
-                  <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Third Option (c)</button>
-                  <input type="text" class="form-control" formControlName="optionThree" name="optionThree" id="optionThree" placeholder="Third Option">
-                   </div>
-                </div>
-                <div class="input-group row">
-                    <div class="col-md-12">
-                    <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Fourth Option (d)</button>
-                    <input type="text" class="form-control" formControlName="optionFour" name="optionFour" id="optionFour" placeholder="Fourth Option">
-                     </div>
-                  </div>
+              <div class="col-md-4">
+                <button class="btn-primary btn-sm form-control" (click)="addOptions();">Add New Option</button>
+               </div>
+               <div class="col-md-4" *ngIf="this.inputOptions.length > 1">
+                <button class="btn-danger btn-sm form-control" (click)="removeLastOption();">Remove last Option</button>
+               </div>
+            </div>
+            
                   <div class="input-group row">
                     <div class="col-md-12">
-                    <button class="btn-warning btn-sm form-control" style="pointer-events: none;">Input Correct Option(s) separated by ","</button>
-                    <input type="text" class="form-control" formControlName="correctAnswers" name="correctAnswers" id="correctAnswers" placeholder="Correct Option(s)">
+                    <button class="btn-warning btn-sm form-control" style="pointer-events: none; font-weight: bold">Input Correct Option(s) Number separated by ","</button>
+                    <input type="text" class="form-control" formControlName="correctAnswers" name="correctAnswers" id="correctAnswers" placeholder="Correct Option(s) Number" pattern="[0-9]," required>
                      </div>
                   </div>
             

@@ -29,7 +29,8 @@ import { GetQuestionService } from '../shared/services/get-question.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [CreateQuestionService, GetQuestionService, {provide:LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [CreateQuestionService, GetQuestionService, {provide:LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

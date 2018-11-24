@@ -13,6 +13,7 @@ export class CreateQuestionComponent implements OnInit {
   questionForm: FormGroup;
   type: string = '';
   inputOptions = [1];
+  displayType: string = 'None';
 
 
   constructor(private questionService: CreateQuestionService) { }
@@ -66,6 +67,7 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'block';
     fillIn.style.display ='none';
     this.type = 'single';
+    this.displayType = 'Single Type';
   //  console.log('Type', this.type);
   }
 
@@ -76,6 +78,7 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'block';
     fillIn.style.display ='none';
     this.type = 'multiple';
+    this.displayType = 'Multiple Type';
   //  console.log('Type', this.type);
 
   }
@@ -87,6 +90,7 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'none';
     fillIn.style.display ='block';
     this.type = 'fill';
+    this.displayType = 'Fill in the Blanks Type';
   //  console.log('Type', this.type);
   }
 
@@ -97,6 +101,7 @@ export class CreateQuestionComponent implements OnInit {
     notFillInOptions.style.display = 'block';
     fillIn.style.display ='none';
     this.type = 'one_or_more';
+    this.displayType = 'One or More than One Correct';
    // console.log('Type', this.type);
   
   }

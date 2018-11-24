@@ -26,23 +26,19 @@
               <textarea class="form-control" formControlName="content" name="content" id="content" type="text"
               placeholder="Post your Question here"></textarea>
           </div>
-          <div class="input-group">
-            <label class="btn btn-primary btn-lg form-control" style="pointer-events: none; height: 50px;">Type of Question</label>
+          <div ngbDropdown class="input-group">
+            <label ngbDropdownToggle class="btn btn-primary btn-lg form-control" id="dropDown" style=" height: 50px;">Type of Question</label>
+                <div class="row" ngbDropdownMenu aria-labelledby="dropDown">
+                    <button class="row input-group dropdown-item" (click)="changeRadioSingle()">  Single Choice Correct</button>
+                    <button class="row input-group dropdown-item" (click)="changeRadioMultiple()">  Multiple Choice Correct   </button>                    
+                    <button class="row input-group dropdown-item" (click)="changeRadioFill()">  Fill in the Blanks</button>
+                    <button class="row input-group dropdown-item" (click)="changeRadioOneOrMore()">  One or More than one Correct</button>
+                        
+                     
+                </div>
+                <label class="btn btn-success btn-lg form-control" style="pointer-events: none; height: 50px;">{{this.displayType}}</label>
           </div>
-          <div class="input-group row">
-            <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="single" (change)="changeRadioSingle()">  Single Choice Correct</label>
-            </div>
-            <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="multiple" (change)="changeRadioMultiple()">  Multiple Choice Correct</label>
-            </div>
-            <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="fill" (change)="changeRadioFill()">  Fill in the Blanks</label>
-            </div>
-            <div class="col-md-3">
-                <label class="radio-inline" style="padding-inline-end: 20px;"><input type="radio" class="btn-primary" formControlName="type" name="type" value="one_or_more" (change)="changeRadioOneOrMore()">  One or More than one Correct</label>
-            </div>
-          </div>
+
           <div class="input-group">
             <label class="btn btn-primary btn-lg form-control" style="pointer-events: none; height: 50px;">Prepare Answer Options</label>
           </div>

@@ -19,7 +19,7 @@
               
             <div *ngIf="question.type == 'single'">
                 <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
-                <button class="btn btn-warning btn-sm form-control" style="font-weight: bold;">Single Correct!</button>
+                    <label class="btn btn-warning btn-sm form-control" style="font-weight: bold; width: 30%;">Single Correct!</label>
                 <ul *ngFor="let option of question.options; let j = index;">
                    <li class="quiz-answer"> 
                      <input type="radio" name="optSingle" id="optSingle-{{j}}" value="{{j}}" (change)="onChange(j)"> {{option}}</li>
@@ -29,27 +29,30 @@
 
             <div *ngIf="question.type == 'multiple'">
                 <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
-                <button class="btn btn-warning btn-sm form-control" style="font-weight: bold;">Multiple Correct!</button>
+                <label class="btn btn-warning btn-sm form-control" style="font-weight: bold; width: 30%;">Multiple Correct!</label>
                 <ul *ngFor="let option of question.options; let j = index;">
-                   <li class="quiz-answer"> <input type="checkbox" name="optcheck" value="{{j}}" (click)="onChangeMultiple(j)">  {{option}}</li>
+                   <li class="quiz-answer"> 
+                     <input type="checkbox" name="optcheck" value="{{j}}" (click)="onChangeMultiple(j)">  {{option}}</li>
                 </ul>
                 <button class="btn btn-success btn-sm form-control" (click)="submitAnswerMultipleType(question?.answer)">Submit Answer</button>
             </div>
 
             <div *ngIf="question.type == 'fill'">
                 <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
-                <button class="btn btn-warning btn-sm form-control" style="font-weight: bold;">Fill in the Blanks!</button>
+                <label class="btn btn-warning btn-sm form-control" style="font-weight: bold; width: 30%;">Fill in the Blanks!</label>
                 <ul>
-                  <li class="quiz-answer"> <input type="text" name="answer" class="form-control" placeholder="Your Answer" [(ngModel)]="textFillType" (change)="onChangeTextFillIn()"></li>
+                  <li class="quiz-answer"> 
+                    <input type="text" name="answer" class="form-control" placeholder="Your Answer" [(ngModel)]="textFillType" (change)="onChangeTextFillIn()"></li>
                 </ul>
                 <button class="btn btn-success btn-sm form-control" (click)="submitAnswerTextFillIn(question?.fillIn)">Submit Answer</button>
             </div>
 
             <div *ngIf="question.type == 'one_or_more'">
                 <h2 class="quiz-question">Q{{i+1}}. {{question?.content}}</h2>
-                <button class="btn btn-warning btn-sm form-control pull-right" style="font-weight: bold;">One or More than One Correct!</button>
+                <label class="btn btn-warning btn-sm form-control" style="font-weight: bold; width: 30%;">One or More than One Correct!</label>
                 <ul *ngFor="let option of question.options; let j = index;">
-                   <li class="quiz-answer"> <input type="checkbox" name="optcheck" value="{{option}}" (click)="onChangeOneOrMore(j)">  {{option}}</li>
+                   <li class="quiz-answer"> 
+                     <input type="checkbox" name="optcheck" value="{{option}}" (click)="onChangeOneOrMore(j)">  {{option}}</li>
                 </ul>
                 <button class="btn btn-success btn-sm form-control" (click)="submitAnswerOneOrMoreType(question?.answer)">Submit Answer</button>
             </div>

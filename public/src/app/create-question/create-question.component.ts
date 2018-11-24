@@ -42,7 +42,7 @@ export class CreateQuestionComponent implements OnInit {
     var lastOption = this.inputOptions[this.inputOptions.length-1];
     this.inputOptions.pop();
     this.questionForm.removeControl('option'+lastOption);
-   // console.log('New Options', this.inputOptions);
+    // console.log('New Options', this.inputOptions);
     //console.log('Form Controls', this.questionForm.controls);
   }
 
@@ -151,6 +151,7 @@ export class CreateQuestionComponent implements OnInit {
        
      });
      this.questionForm.reset();
+     this.inputOptions = [1];
   
     }
     else if(this.type == 'multiple'){
@@ -182,7 +183,7 @@ export class CreateQuestionComponent implements OnInit {
       
      // console.log('Form Data', formData);
      // console.log('Form Option Data', options);
-    //  console.log('Form Answer Data', answers);
+     //  console.log('Form Answer Data', answers);
       
       this.questionService.createQuestion(formData)
       .subscribe((res) => {
@@ -194,6 +195,7 @@ export class CreateQuestionComponent implements OnInit {
         
       });
       this.questionForm.reset();
+      this.inputOptions = [1];
 
     }
     else if(this.type == 'fill'){
@@ -216,7 +218,7 @@ export class CreateQuestionComponent implements OnInit {
      
     // console.log('Form Data', formData);
     // console.log('Form Option Data', options);
-   //  console.log('Form Answer Data', answers);
+    //  console.log('Form Answer Data', answers);
 
      this.questionService.createQuestion(formData)
      .subscribe((res) => {
@@ -228,6 +230,7 @@ export class CreateQuestionComponent implements OnInit {
        
      });
      this.questionForm.reset();
+     this.inputOptions = [1];
      
     }
     else if(this.type == 'one_or_more'){
@@ -258,7 +261,7 @@ export class CreateQuestionComponent implements OnInit {
       }
       
     //  console.log('Form Data', formData);
-     // console.log('Form Option Data', options);
+    // console.log('Form Option Data', options);
     //  console.log('Form Answer Data', answers);
       
       this.questionService.createQuestion(formData)
@@ -271,6 +274,7 @@ export class CreateQuestionComponent implements OnInit {
         
       });
       this.questionForm.reset();
+      this.inputOptions = [1];
       
     }
     

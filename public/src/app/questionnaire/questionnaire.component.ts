@@ -15,6 +15,15 @@ export class QuestionnaireComponent implements OnInit {
   checkOneOrMoreType = new Array();
   textFillType = '';
 
+  displaySingleType;
+  displayMultipleType = new Array();
+
+
+  totalSingleTypeQuestions = 0;
+  totalMultipleTypeQuestions = 0;
+  totalOneOrMoreTypeQuestions = 0;
+  totalFillTypeQuestions = 0;
+
   constructor(private getQuestion: GetQuestionService) {
 
   }
@@ -24,9 +33,24 @@ export class QuestionnaireComponent implements OnInit {
    
   }
 
-  onChange(eventValue){
+  onChange(eventValue, index){
     console.log('Value', eventValue);
     this.radioSingleType = eventValue;
+  this.displaySingleType= eventValue
+  
+
+  }
+
+  showAnswerOptions(index){
+    var answerOptionID = document.getElementById('answerOptions-'+index);
+   // console.log(answerOptionID);
+    if(answerOptionID.style.display == 'block'){
+      answerOptionID.style.display = 'none';
+    } 
+    else if(answerOptionID.style.display == 'none'){
+      answerOptionID.style.display = 'block';
+    }
+    
   }
 
   onChangeMultiple(eventValue){
@@ -40,6 +64,8 @@ export class QuestionnaireComponent implements OnInit {
       this.checkMultipleType.push(eventValue);
       console.log('Multiple Type Array', this.checkMultipleType.sort());
     }
+
+    
    
   }
 
@@ -69,6 +95,7 @@ export class QuestionnaireComponent implements OnInit {
     else{
       swal('Oops!', 'Wrong Answer, Please Try again!', 'error');
     }
+    this.displaySingleType = '';
   }
 
   submitAnswerMultipleType(answer){
@@ -109,7 +136,30 @@ export class QuestionnaireComponent implements OnInit {
     this.getQuestion.getQuestions()
     .subscribe((res) => {
       this.questions = res['questions'];
+      for(var i =  0; i < this.questions.length; i++){
+        if(this.questions[i].type == 'single'){
+          this.totalSingleTypeQuestions = this.totalSingleTypeQuestions + 1;
+        }
+        if(this.questions[i].type == 'multiple'){
+          this.totalMultipleTypeQuestions = this.totalMultipleTypeQuestions + 1;
+        }
+        if(this.questions[i].type == 'one_or_more'){
+          this.totalOneOrMoreTypeQuestions = this.totalOneOrMoreTypeQuestions + 1;
+        }
+        if(this.questions[i].type == 'fill'){
+          this.totalFillTypeQuestions = this.totalFillTypeQuestions + 1;
+        }
+      }
       console.log('All Questions', this.questions);
+      
+      console.log('All Single Type Questions', this.totalSingleTypeQuestions);
+      
+      console.log('All Multiple Type Questions', this.totalMultipleTypeQuestions);
+      
+      console.log('All One or More than One Type Questions', this.totalOneOrMoreTypeQuestions);
+      
+      console.log('All Fill Type Questions', this.totalFillTypeQuestions);
+
       swal('Good Job!', 'You have got '+this.questions.length+ ' questions to answer!', 'success');
     }, (err) =>{
       swal('Oops!', 'There\'s some techincal error '+ err['message'], 'error');
